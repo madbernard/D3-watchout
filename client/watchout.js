@@ -56,8 +56,8 @@ var test = [{cx: 40, cy: 70},{cx: 40, cy: 70},{cx: 40, cy: 70}];
 
 function dragmove(d) {
     d3.select(this)
-      .attr("cx", ((d3.event.sourceEvent.pageY) - this.offsetHeight/2)+"px")
-      .attr("cy", ((d3.event.sourceEvent.pageX) - this.offsetWidth/2)+"px");
+      .attr("cy", d3.event.y)
+      .attr("cx", d3.event.x);
 }
 
 var drag = d3.behavior.drag()
@@ -106,8 +106,7 @@ var asteroids = d3.select('g')
 var quickness = 3000;
 
 function move(){
-var movedAsteroids = d3.select('g')
-  .selectAll('circle')
+var movedAsteroids = asteroids
   .data(makeAsteroidLocations(asteroidNumber))
 //  .data(makeAsteroidLocations)
   .transition().duration(quickness)
@@ -123,6 +122,19 @@ setInterval(move, quickness);
 
 var img = svg.append("svg:image")
   .attr("xlink:href", "asteroid.png");
+
+// function collisionDetection(){
+//  for(loop through asteroids)
+//  if(player.cx && player.cy === asteroids.cy && asteroids.cy) {
+
+//  }
+
+// }
+
+
+// have to check player coords all the time, it might have been dragged somewhere
+// asteroids move all the time also
+
 
 //     svg
 //     g, g, g, g, g
