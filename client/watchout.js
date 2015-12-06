@@ -99,21 +99,24 @@ var detectCollisions = function() {
   //get player position
   var playCX = player.attr('cx');
   var playCY = player.attr('cy');
-console.log(playCY);
-console.log(playCX);
 
   asteroids.each(function() {
-    var cx = this.offsetLeft + 20;
-    var cy = this.offsetTop + 20;
-
-    var x = cx - playCX;
-    var y = cy - playCY;
+    //center position
+console.log(this.cx.animVal.value);
+console.log(this.cy);
+//debugger
+    var newcx = this.cx.animVal.value + 20;
+    var newcy = this.cy.animVal.value + 20;
+    //distance between asteroid and mouse
+    var x = newcx - playCX;
+    var y = newcy - playCY;
     if (Math.sqrt(x * x + y * y) < 50) {
       collision = true;
     }
   });
   if (collision) {
     score = 0;
+    console.log("collision");
     board.attr('background-color', 'red');
     if (prevCollision != collision) {
       collisionCount = collisionCount + 1;
