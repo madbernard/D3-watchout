@@ -7,8 +7,8 @@ var playerData = {
   cx: 40,
   cy: 70
 };
-var asteroidNumber = 6;
-var quickness = 3000;
+var asteroidNumber = 10;
+var quickness = 2000;
 
 var collisionCount = 0;
 var score = 0;
@@ -67,6 +67,9 @@ var player = d3.select('g')
     return d.cy;
   })
   .attr("fill", "blue")
+  .attr("stroke", "black")
+  .attr("stroke-width", 2)
+
   .call(drag)
   .attr('class', 'player');
 
@@ -85,7 +88,10 @@ var asteroids = d3.select('g')
     return d.cy;
   })
   .attr("fill", "red")
-  .attr("class", "asteroid");
+  .attr("class", "asteroid")
+  .attr("stroke", "green")
+  .attr("stroke-width", 2);
+
 
 function move() {
   var movedAsteroids = asteroids

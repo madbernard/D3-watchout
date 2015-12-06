@@ -11,6 +11,13 @@ body {
 
 .asteroid {
   position: absolute;
+  /*background-image: url("asteroid.png");*/
+  animation-name: tutsFade;
+  animation-duration: 1s;
+  animation-delay: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-direction: alternate;
 }
 
 .board {
@@ -19,4 +26,13 @@ body {
 
 .player {
   position: absolute;
+}
+
+@keyframes tutsFade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
