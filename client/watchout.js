@@ -10,13 +10,26 @@ var playerData = {
 var asteroidNumber = 6;
 var quickness = 3000;
 
+var collisionCount = 0;
+var score = 0;
+var highScore = 0;
+
+var updateScore = function(){
+  d3.select('.scoreboard .current span').text(score);
+  d3.select('.scoreboard .high span').text(highScore);
+  d3.select('.scoreboard .collisions span').text(collisionCount);
+};
+
+
 // box container for the game
 var board = d3.select("body").append("svg")
   .attr('class', 'board')
   .attr("width", width)
   .attr("height", height)
-  .attr('fill', 'white')
-  .append("g");
+  .attr('fill', 'white');
+  //.append("g");
+
+var svgGroup = board.append('g');
 
 var makeAsteroidLocations = function(n) {
   var arr = [playerData];
@@ -92,6 +105,16 @@ function move() {
 
 move();
 
+var scoreTicker = function(){
+  score = score + 1;
+  highScore = Math.max(score, highScore);
+
+  updateScore();
+};
+setInterval(scoreTicker, 100);
+
+
+var previousCollision = false;
 
 var detectCollisions = function() {
   var collision = false;
@@ -102,8 +125,8 @@ var detectCollisions = function() {
 
   asteroids.each(function() {
     //center position
-console.log(this.cx.animVal.value);
-console.log(this.cy);
+// console.log(this.cx.animVal.value);
+// console.log(this.cy);
 //debugger
     var newcx = this.cx.animVal.value + 20;
     var newcy = this.cy.animVal.value + 20;
@@ -117,12 +140,12 @@ console.log(this.cy);
   if (collision) {
     score = 0;
     console.log("collision");
-    board.attr('background-color', 'red');
+    board.attr('fill', 'red');
     if (prevCollision != collision) {
       collisionCount = collisionCount + 1;
     }
   } else {
-    board.attr('background-color', 'white');
+    board.attr('fill', 'white');
   }
   prevCollision = collision;
 };
